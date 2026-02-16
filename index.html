@@ -6,73 +6,37 @@
 <title>Online Degree/DMC Verification</title>
 
 <style>
-    body {
-        margin: 2px;
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #ffffff;
         font-family: Arial, Helvetica, sans-serif;
-        background-color: #f5f5f5;
     }
 
-    /* Navbar */
     .navbar {
-        background-color: #7d0c0c; /* Dark red */
+        background-color: #7d0c0c;
         color: white;
         padding: 18px 24px;
         font-size: 20px;
         font-weight: 600;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
-    /* PDF Container */
-    .pdf-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        min-height: calc(100vh - 70px);
-    }
-
-    .pdf-container {
-        width: 90%;
-        max-width: 1000px;
-        height: 85vh;
-        background: white;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    iframe {
+    .pdf-frame {
         width: 100%;
-        height: 100%;
+        height: calc(100vh - 64px);
         border: none;
+        display: block;
     }
-    .pdf-wrapper {
-    width: 100%;
-    height: calc(100vh - 70px); /* subtract navbar height */
-}
 
-.pdf-frame {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-}
-
-    /* Mobile adjustments */
     @media (max-width: 768px) {
         .navbar {
             font-size: 16px;
             padding: 14px 16px;
         }
 
-        .pdf-container {
-            width: 100%;
-            height: 80vh;
-            border-radius: 0;
-        }
-
-        .pdf-wrapper {
-            padding: 10px;
+        .pdf-frame {
+            height: calc(100vh - 56px);
         }
     }
 </style>
@@ -84,12 +48,10 @@
     Online Degree/DMC Verification
 </div>
 
-<div class="pdf-wrapper">
-    <iframe 
-        src="29678ba5-fe56-47f9-ad71-7fb9eadf0e70.pdf#zoom=page-width"
-        class="pdf-frame">
-    </iframe>
-</div>
+<iframe 
+    src="29678ba5-fe56-47f9-ad71-7fb9eadf0e70.pdf#zoom=page-width"
+    class="pdf-frame">
+</iframe>
+
 </body>
 </html>
-
