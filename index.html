@@ -46,6 +46,17 @@
         height: 100%;
         border: none;
     }
+    .pdf-wrapper {
+    width: 100%;
+    height: calc(100vh - 70px); /* subtract navbar height */
+}
+
+.pdf-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
 
     /* Mobile adjustments */
     @media (max-width: 768px) {
@@ -73,10 +84,12 @@
     Online Degree/DMC Verification
 </div>
 
-<object data="29678ba5-fe56-47f9-ad71-7fb9eadf0e70.pdf" 
-        type="application/pdf" 
-        width="100%" 
-        height="100%">
-</object>
+<div class="pdf-wrapper">
+    <iframe 
+        src="29678ba5-fe56-47f9-ad71-7fb9eadf0e70.pdf#zoom=page-width"
+        class="pdf-frame">
+    </iframe>
+</div>
 </body>
 </html>
+
