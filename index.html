@@ -9,7 +9,6 @@
     html, body {
         margin: 0;
         padding: 0;
-        height: 100%;
         background: #ffffff;
         font-family: Arial, Helvetica, sans-serif;
     }
@@ -22,10 +21,14 @@
         font-weight: 600;
     }
 
-    .pdf-frame {
+    .pdf-container {
         width: 100%;
-        height: calc(100vh - 64px);
-        border: none;
+        text-align: center;
+    }
+
+    canvas {
+        width: 100%;
+        height: auto;
         display: block;
     }
 
@@ -33,10 +36,6 @@
         .navbar {
             font-size: 16px;
             padding: 14px 16px;
-        }
-
-        .pdf-frame {
-            height: calc(100vh - 56px);
         }
     }
 </style>
@@ -48,11 +47,39 @@
     Online Degree/DMC Verification
 </div>
 
-<iframe 
-    src="29678ba5-fe56-47f9-ad71-7fb9eadf0e70.pdf#zoom=page-width"
-    class="pdf-frame">
-</iframe>
+<div class="pdf-container">
+    <canvas id="pdf-render"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+    const url = "29678ba5-fe56-47f9-ad71-7fb9eadf0e70.pdf";
+
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdf.getPage(1).then(page => {
+
+            const viewport = page.getViewport({ scale: 1 });
+            const containerWidth = window.innerWidth;
+            const scale = containerWidth / viewport.width;
+            const scaledViewport = page.getViewport({ scale: scale });
+
+            const canvas = document.getElementById("pdf-render");
+            const context = canvas.getContext("2d");
+
+            canvas.height = scaledViewport.height;
+            canvas.width = scaledViewport.width;
+
+            page.render({
+                canvasContext: context,
+                viewport: scaledViewport
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
-
