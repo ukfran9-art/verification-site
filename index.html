@@ -6,36 +6,62 @@
 <title>Online Degree/DMC Verification</title>
 
 <style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        background: #ffffff;
+    body {
+        margin: 2px;
         font-family: Arial, Helvetica, sans-serif;
+        background-color: #f5f5f5;
     }
 
+    /* Navbar */
     .navbar {
-        background-color: #7d0c0c;
+        background-color: #7d0c0c; /* Dark red */
         color: white;
         padding: 18px 24px;
         font-size: 20px;
         font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* PDF Container */
+    .pdf-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        min-height: calc(100vh - 70px);
     }
 
     .pdf-container {
-        width: 100%;
-        text-align: center;
+        width: 90%;
+        max-width: 1000px;
+        height: 85vh;
+        background: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
     }
 
-    canvas {
+    iframe {
         width: 100%;
-        height: auto;
-        display: block;
+        height: 100%;
+        border: none;
     }
 
+    /* Mobile adjustments */
     @media (max-width: 768px) {
         .navbar {
             font-size: 16px;
             padding: 14px 16px;
+        }
+
+        .pdf-container {
+            width: 100%;
+            height: 80vh;
+            border-radius: 0;
+        }
+
+        .pdf-wrapper {
+            padding: 10px;
         }
     }
 </style>
@@ -47,39 +73,8 @@
     Online Degree/DMC Verification
 </div>
 
-<div class="pdf-container">
-    <canvas id="pdf-render"></canvas>
+<div>
+    
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script>
-    const url = "29678ba5-fe56-47f9-ad71-7fb9eadf0e70.pdf";
-
-    const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-
-    pdfjsLib.getDocument(url).promise.then(pdf => {
-        pdf.getPage(1).then(page => {
-
-            const viewport = page.getViewport({ scale: 1 });
-            const containerWidth = window.innerWidth;
-            const scale = containerWidth / viewport.width;
-            const scaledViewport = page.getViewport({ scale: scale });
-
-            const canvas = document.getElementById("pdf-render");
-            const context = canvas.getContext("2d");
-
-            canvas.height = scaledViewport.height;
-            canvas.width = scaledViewport.width;
-
-            page.render({
-                canvasContext: context,
-                viewport: scaledViewport
-            });
-        });
-    });
-</script>
-
 </body>
 </html>
